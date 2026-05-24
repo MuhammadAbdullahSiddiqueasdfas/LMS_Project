@@ -40,50 +40,41 @@ This project reflects real-world industry standards including JWT authentication
 
 ## 🏗️ System Architecture
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                        CLIENT LAYER                         │
-│                    React JS (Port 3000)                     │
-│         Components │ Pages │ Context │ Services             │
-└──────────────────────────┬──────────────────────────────────┘
-                           │  HTTP Requests (Axios)
-                           ▼
-┌─────────────────────────────────────────────────────────────┐
-│                        API LAYER                            │
-│                  Node.js + Express (Port 5000)              │
-│          Routes │ Controllers │ Middleware                  │
-└──────────────────────────┬──────────────────────────────────┘
-                           │  Mongoose ODM
-                           ▼
-┌─────────────────────────────────────────────────────────────┐
-│                      DATABASE LAYER                         │
-│                    MongoDB Atlas                            │
-│         Users │ Courses │ Enrollments                      │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph ClientLayer["CLIENT LAYER - React JS (Port 3000)"]
+        direction LR
+        C1[Components] --- C2[Pages] --- C3[Context] --- C4[Services]
+    end
+
+    subgraph ApiLayer["API LAYER - Node.js + Express (Port 5000)"]
+        direction LR
+        A1[Routes] --- A2[Controllers] --- A3[Middleware]
+    end
+
+    subgraph DatabaseLayer["DATABASE LAYER - MongoDB Atlas"]
+        direction LR
+        D1[Users] --- D2[Courses] --- D3[Enrollments]
+    end
+
+    ClientLayer -->|HTTP Requests Axios| ApiLayer
+    ApiLayer -->|Mongoose ODM| DatabaseLayer
 ```
 
 ### Request Flow Diagram
 
-```
-User Action (React UI)
-        │
-        ▼
-Axios HTTP Request
-        │
-        ▼
-Express Router  ──►  JWT Middleware  ──►  Role Middleware
-        │
-        ▼
-Controller (Business Logic)
-        │
-        ▼
-Mongoose Model
-        │
-        ▼
-MongoDB Database
-        │
-        ▼
-JSON Response  ──►  React State Update  ──►  UI Re-render
+```mermaid
+flowchart TD
+    A[User Action React UI] --> B[Axios HTTP Request]
+    B --> C[Express Router]
+    C --> D[JWT Middleware]
+    D --> E[Role Middleware]
+    E --> F[Controller Business Logic]
+    F --> G[Mongoose Model]
+    G --> H[MongoDB Database]
+    H --> I[JSON Response]
+    I --> J[React State Update]
+    J --> K[UI Re-render]
 ```
 
 ---
@@ -121,36 +112,27 @@ JSON Response  ──►  React State Update  ──►  UI Re-render
 
 The system implements **Role-Based Access Control (RBAC)** with three distinct roles:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      USER ROLES                             │
-├───────────────┬──────────────────┬──────────────────────────┤
-│    ADMIN      │   INSTRUCTOR     │       STUDENT            │
-├───────────────┼──────────────────┼──────────────────────────┤
-│ View all users│ Create courses   │ Register & Login         │
-│ Delete users  │ Edit courses     │ Browse courses           │
-│ Manage courses│ Delete courses   │ Enroll in courses        │
-│ View analytics│ Upload lessons   │ View enrolled courses    │
-│ Full access   │ Manage content   │ Track progress           │
-└───────────────┴──────────────────┴──────────────────────────┘
-```
+| ADMIN | INSTRUCTOR | STUDENT |
+|---|---|---|
+| View all users | Create courses | Register & Login |
+| Delete users | Edit courses | Browse courses |
+| Manage courses | Delete courses | Enroll in courses |
+| View analytics | Upload lessons | View enrolled courses |
+| Full access | Manage content | Track progress |
 
 ### Role Authorization Flow
 
-```
-Incoming Request
-      │
-      ▼
-JWT Token Verified?
-   │         │
-  YES        NO ──► 401 Unauthorized
-   │
-   ▼
-Extract Role from Token
-      │
-      ├──► role: "admin"      ──► Admin Routes
-      ├──► role: "instructor" ──► Instructor Routes
-      └──► role: "student"    ──► Student Routes
+```mermaid
+flowchart TD
+    A[Incoming Request] --> B{JWT Token Verified?}
+    B -- NO --> C[401 Unauthorized]
+    B -- YES --> D[Extract Role from Token]
+    D --> E[role: admin]
+    E --> F[Admin Routes]
+    D --> G[role: instructor]
+    G --> H[Instructor Routes]
+    D --> I[role: student]
+    I --> J[Student Routes]
 ```
 
 ---
@@ -250,33 +232,35 @@ frontend/
 
 ### Layered Architecture
 
-```
-┌──────────────────────────────────────────┐
-│              ROUTES LAYER                │
-│   Defines API endpoints & HTTP methods   │
-│   authRoutes, courseRoutes, userRoutes   │
-└─────────────────┬────────────────────────┘
-                  │
-                  ▼
-┌──────────────────────────────────────────┐
-│           MIDDLEWARE LAYER               │
-│  verifyToken() │ authorizeRole()         │
-│  errorHandler() │ validateInput()        │
-└─────────────────┬────────────────────────┘
-                  │
-                  ▼
-┌──────────────────────────────────────────┐
-│           CONTROLLER LAYER               │
-│  Business logic, request/response        │
-│  authController, courseController        │
-└─────────────────┬────────────────────────┘
-                  │
-                  ▼
-┌──────────────────────────────────────────┐
-│             MODEL LAYER                  │
-│  Mongoose schemas & database operations  │
-│  User, Course, Enrollment models         │
-└──────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph RoutesLayer["ROUTES LAYER"]
+        direction TB
+        R1["Defines API endpoints & HTTP methods"]
+        R2["authRoutes, courseRoutes, userRoutes"]
+    end
+
+    subgraph MiddlewareLayer["MIDDLEWARE LAYER"]
+        direction TB
+        M1["verifyToken() | authorizeRole()"]
+        M2["errorHandler() | validateInput()"]
+    end
+
+    subgraph ControllerLayer["CONTROLLER LAYER"]
+        direction TB
+        C1["Business logic, request/response"]
+        C2["authController, courseController"]
+    end
+
+    subgraph ModelLayer["MODEL LAYER"]
+        direction TB
+        ML1["Mongoose schemas & database operations"]
+        ML2["User, Course, Enrollment models"]
+    end
+
+    RoutesLayer --> MiddlewareLayer
+    MiddlewareLayer --> ControllerLayer
+    ControllerLayer --> ModelLayer
 ```
 
 ### Folder Structure
@@ -323,21 +307,36 @@ backend/
 
 ### Entity Relationship Diagram
 
-```
-┌─────────────┐         ┌─────────────────┐         ┌──────────────┐
-│    USER     │         │    ENROLLMENT   │         │   COURSE     │
-├─────────────┤         ├─────────────────┤         ├──────────────┤
-│ _id (PK)   │◄────────│ student (FK)    │────────►│ _id (PK)    │
-│ name        │         │ course (FK)     │         │ title        │
-│ email       │         │ progress        │         │ description  │
-│ password    │         │ enrolledAt      │         │ instructor   │◄──┐
-│ role        │         └─────────────────┘         │ category     │   │
-│ createdAt   │                                      │ price        │   │
-│ updatedAt   │──────────────────────────────────────│ createdAt    │   │
-└─────────────┘  (instructor role)                  └──────────────┘   │
-       │                                                                │
-       └────────────────────────────────────────────────────────────────┘
-                              (User with role=instructor)
+```mermaid
+erDiagram
+    USER {
+        ObjectId _id PK
+        String name
+        String email
+        String password
+        String role
+        Date createdAt
+        Date updatedAt
+    }
+    COURSE {
+        ObjectId _id PK
+        String title
+        String description
+        ObjectId instructor FK
+        String category
+        Number price
+        Date createdAt
+    }
+    ENROLLMENT {
+        ObjectId student FK
+        ObjectId course FK
+        Number progress
+        Date enrolledAt
+    }
+
+    USER ||--o{ ENROLLMENT : "student"
+    COURSE ||--o{ ENROLLMENT : "course"
+    USER ||--o{ COURSE : "instructor role"
 ```
 
 ### User Schema
@@ -383,30 +382,20 @@ backend/
 
 ### Authentication Flow
 
-```
-┌─────────┐     POST /login      ┌─────────────┐
-│  User   │ ──────────────────► │   Backend   │
-│         │  { email, password } │             │
-│         │                      │ 1. Find user│
-│         │                      │ 2. bcrypt   │
-│         │                      │    compare  │
-│         │                      │ 3. Generate │
-│         │  ◄────────────────── │    JWT      │
-│         │   { token, user }    │             │
-└─────────┘                      └─────────────┘
-     │
-     │  Store token in localStorage
-     ▼
-┌─────────┐   GET /protected     ┌─────────────┐
-│  User   │ ──────────────────► │   Backend   │
-│         │  Authorization:      │             │
-│         │  Bearer <token>      │ 1. Verify   │
-│         │                      │    JWT      │
-│         │                      │ 2. Check    │
-│         │                      │    role     │
-│         │  ◄────────────────── │ 3. Allow /  │
-│         │   Protected Data     │    Deny     │
-└─────────┘                      └─────────────┘
+```mermaid
+sequenceDiagram
+    participant User
+    participant Backend
+
+    User->>Backend: POST /login {email, password}
+    Note right of Backend: 1. Find user<br/>2. bcrypt compare<br/>3. Generate JWT
+    Backend-->>User: { token, user }
+
+    Note left of User: Store token in localStorage
+
+    User->>Backend: GET /protected<br/>Authorization: Bearer <token>
+    Note right of Backend: 1. Verify JWT<br/>2. Check role
+    Backend-->>User: Protected Data (or 401/403 Allow/Deny)
 ```
 
 ### Security Features
