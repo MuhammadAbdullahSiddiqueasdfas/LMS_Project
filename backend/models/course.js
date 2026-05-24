@@ -54,7 +54,7 @@ const courseSchema = new mongoose.Schema(
 );
 
 courseSchema.virtual("lessonCount").get(function () {
-  return this.lessons.length;
+  return this.lessons ? this.lessons.length : 0;
 });
 
 module.exports = mongoose.model("Course", courseSchema);
