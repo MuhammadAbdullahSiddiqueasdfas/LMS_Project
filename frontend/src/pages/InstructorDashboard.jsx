@@ -16,11 +16,18 @@ export default function InstructorDashboard() {
 
     const handleCreate = async (e) => {
         e.preventDefault();
-        const res = await api.post("/courses", form);
-        if (res.data.success) {
-            setMsg("Course created!");
-            setCourses([...courses, res.data.course]);
-        } else setMsg("Failed to create");
+        try {
+            const res = await api.post("/courses", form);
+            if (res.data.success) {
+                setMsg("Course created!");
+                setCourses([...courses, res.data.course]);
+                setForm({ title: "", description: "", category: "", price: "" }); // Clear form
+            } else {
+                setMsg(res.data.message || "Failed to create");
+            }
+        } catch (err) {
+            setMsg(err.response?.data?.message || "Failed to create course");
+        }
     };
 
     return (

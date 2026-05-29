@@ -8,8 +8,12 @@ export default function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await register(form.name, form.email, form.password, form.role);
-        if (!res.data.success) setError(res.data.message || "Registration failed");
+        try {
+            const res = await register(form.name, form.email, form.password, form.role);
+            if (!res?.data?.success) setError(res?.data?.message || "Registration failed");
+        } catch (err) {
+            setError(err.response?.data?.message || "Registration failed");
+        }
     };
 
     return (

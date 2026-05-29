@@ -8,8 +8,12 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await login(form.email, form.password);
-    if (!res.data.success) setError(res.data.message || "Login failed");
+    try {
+      const res = await login(form.email, form.password);
+      if (!res?.data?.success) setError(res?.data?.message || "Login failed");
+    } catch (err) {
+      setError(err.response?.data?.message || "Login failed");
+    }
   };
 
   return (

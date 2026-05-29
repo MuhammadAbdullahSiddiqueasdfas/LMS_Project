@@ -15,8 +15,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
         <Navbar />
         <Routes>
           {/* PUBLIC */}
@@ -44,8 +44,8 @@ function App() {
             </ProtectedRoute>
           } />
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
