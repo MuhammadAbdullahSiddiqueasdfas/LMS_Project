@@ -6,7 +6,7 @@ export default function InstructorDashboard() {
     const [form, setForm] = useState({ title: "", description: "", category: "", price: "" });
     const [msg, setMsg] = useState("");
 
-    // Load only courses where instructor === logged‑in user
+    // Load only courses where instructor is the logged-in user
     useEffect(() => {
         api.get("/courses").then(res => {
             const own = res.data.courses.filter(c => c.instructor._id === JSON.parse(atob(localStorage.getItem("jwt_token").split('.')[1])).id);

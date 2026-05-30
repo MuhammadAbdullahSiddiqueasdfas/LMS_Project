@@ -1,9 +1,7 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import api from "../services/api";
-import { AuthContext } from "../context/AuthContext";
 
 export default function StudentDashboard() {
-    const { user } = useContext(AuthContext);
     const [enrollments, setEnrollments] = useState([]);
 
     useEffect(() => {

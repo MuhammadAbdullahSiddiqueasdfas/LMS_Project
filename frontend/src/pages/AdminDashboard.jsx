@@ -38,7 +38,7 @@ export default function AdminDashboard() {
                         </ul>
                     </li>
                 </ul>
-            ) : <p>Loading analytics…</p>}
+            ) : <p>Loading analytics...</p>}
 
             <h4>All Users</h4>
             <table className="table table-sm table-hover">

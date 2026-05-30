@@ -2,44 +2,55 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="pt-5 pb-3 border-top border-secondary border-opacity-25" style={{ backgroundColor: "#0B1120" }}>
+    <footer className="pt-5 pb-3 footer-section">
       <div className="container pt-4">
         <div className="row mb-5">
           <div className="col-lg-4 mb-4 mb-lg-0">
             <div className="d-flex align-items-center mb-3">
-              <img src="/picture/logo.png" alt="LMS Logo" height="40" style={{ objectFit: "contain" }} className="me-2" />
+              <img src="/logo/logo.png" alt="Abdrax Learner" height="80" style={{ objectFit: "contain" }} />
             </div>
             <p className="text-muted pe-lg-5">
-              Empowering learners and educators worldwide with a modern, fast, and scalable learning management platform.
+              Empowering learners and educators with a modern, secure, and scalable learning management platform.
             </p>
           </div>
-          <div className="col-6 col-lg-2 offset-lg-1 mb-4 mb-lg-0">
-            <h6 className="fw-bold text-white mb-3">Platform</h6>
+          <div className="col-6 col-lg-2 mb-4 mb-lg-0">
+            <h6 className="fw-bold text-white mb-3">Quick Links</h6>
             <ul className="list-unstyled text-muted">
-              <li className="mb-2"><Link to="/courses" className="text-muted text-decoration-none">Browse Courses</Link></li>
-              <li className="mb-2"><Link to="/about" className="text-muted text-decoration-none">About Us</Link></li>
-              <li className="mb-2"><Link to="/register" className="text-muted text-decoration-none">Become Instructor</Link></li>
+              <li className="mb-2"><Link to="/" className="text-muted text-decoration-none">Home</Link></li>
+              <li className="mb-2"><Link to="/courses" className="text-muted text-decoration-none">Courses</Link></li>
+              <li className="mb-2"><Link to="/about" className="text-muted text-decoration-none">About</Link></li>
+              <li className="mb-2"><a href="/#contact" className="text-muted text-decoration-none">Contact</a></li>
             </ul>
           </div>
           <div className="col-6 col-lg-2 mb-4 mb-lg-0">
-            <h6 className="fw-bold text-white mb-3">Support</h6>
+            <h6 className="fw-bold text-white mb-3">Platform</h6>
             <ul className="list-unstyled text-muted">
-              <li className="mb-2"><a href="#" className="text-muted text-decoration-none">Help Center</a></li>
-              <li className="mb-2"><a href="#" className="text-muted text-decoration-none">Terms of Service</a></li>
-              <li className="mb-2"><a href="#" className="text-muted text-decoration-none">Privacy Policy</a></li>
+              <li className="mb-2"><Link to="/student/dashboard" className="text-muted text-decoration-none">Student Portal</Link></li>
+              <li className="mb-2"><Link to="/instructor/dashboard" className="text-muted text-decoration-none">Instructor Panel</Link></li>
+              <li className="mb-2"><Link to="/admin/dashboard" className="text-muted text-decoration-none">Admin Dashboard</Link></li>
             </ul>
           </div>
-          <div className="col-lg-3">
-            <h6 className="fw-bold text-white mb-3">Subscribe</h6>
-            <p className="text-muted small">Get the latest updates and course offers directly in your inbox.</p>
-            <div className="input-group mb-3">
-              <input type="email" className="form-control bg-dark border-secondary text-white shadow-none" placeholder="Your email address" />
-              <button className="btn btn-primary-custom" type="button">Subscribe</button>
-            </div>
+          <div className="col-6 col-lg-2 mb-4 mb-lg-0">
+            <h6 className="fw-bold text-white mb-3">Legal</h6>
+            <ul className="list-unstyled text-muted">
+              <li className="mb-2"><a href="/#contact" className="text-muted text-decoration-none">Privacy Policy</a></li>
+              <li className="mb-2"><a href="/#contact" className="text-muted text-decoration-none">Terms & Conditions</a></li>
+            </ul>
+          </div>
+          <div className="col-lg-2">
+            <h6 className="fw-bold text-white mb-3">Contact</h6>
+            <ul className="list-unstyled text-muted small">
+              <li className="mb-2">
+                <a href="mailto:abdraxofficial@gmail.com" className="text-muted text-decoration-none">
+                  abdraxofficial@gmail.com
+                </a>
+              </li>
+              <li className="mb-2">Punjab, Pakistan</li>
+            </ul>
           </div>
         </div>
         <div className="text-center border-top border-secondary border-opacity-25 pt-4 mt-4 text-muted small">
-          &copy; {new Date().getFullYear()} LMS Platform. All rights reserved.
+          &copy; {new Date().getFullYear()} Abdrax Learner. All rights reserved.
         </div>
       </div>
     </footer>
