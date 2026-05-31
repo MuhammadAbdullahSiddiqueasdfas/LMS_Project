@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }) => {
       setToken(jwt);
       const payload = JSON.parse(atob(jwt.split('.')[1]));
       setUser({ id: payload.id, role: payload.role, name: payload.name });
-      navigate('/');
     }
     return res;
   };
@@ -40,7 +39,6 @@ export const AuthProvider = ({ children }) => {
       setToken(jwt);
       const payload = JSON.parse(atob(jwt.split('.')[1]));
       setUser({ id: payload.id, role: payload.role, name: payload.name });
-      navigate('/');
     }
     return res;
   };

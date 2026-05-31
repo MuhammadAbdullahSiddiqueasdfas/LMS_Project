@@ -39,7 +39,10 @@ export default function AuthModal({ mode, onClose, onSwitch }) {
           setError(res?.data?.message || "Registration failed");
         } else {
           onClose();
-          navigate("/student/dashboard");
+          const role = res.data.user?.role || form.role;
+          if (role === "instructor") navigate("/instructor/dashboard");
+          else if (role === "admin") navigate("/admin/dashboard");
+          else navigate("/student/dashboard");
         }
       }
     } catch (err) {
