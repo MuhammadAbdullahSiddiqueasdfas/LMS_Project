@@ -3,7 +3,7 @@
 > **Course:** MERN Stack Web Development  
 > **Assessment Type:** Final Project (Full Stack Application)  
 > **Total Marks:** 100  
-> **Author:** Muhammad Abdullah Siddique
+> **Author:** Muhammad Ehtisham hashim
 
 ---
 
@@ -636,7 +636,7 @@ By completing this project, students demonstrate:
 
 > I confirm that this project is my own work and I have not copied it from any unauthorized source.
 
-**Student Name:** Muhammad Abdullah Siddique  
+**Student Name:** Muhammad Ehtisham hashim
 **Date:** May 2026
 
 ---
