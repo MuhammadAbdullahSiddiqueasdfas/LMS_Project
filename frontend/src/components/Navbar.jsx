@@ -1,17 +1,24 @@
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { useModal } from "../context/ModalContext";
+
+const DASHBOARD_PATHS = ["/admin/dashboard", "/instructor/dashboard", "/student/dashboard"];
 
 export default function Navbar() {
   const { user, logout } = useContext(AuthContext);
   const { openLogin, openRegister } = useModal();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isDashboard = DASHBOARD_PATHS.some(p => location.pathname.startsWith(p));
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
+
+  if (isDashboard) return null;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark app-navbar sticky-top py-2">

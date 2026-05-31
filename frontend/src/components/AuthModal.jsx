@@ -21,10 +21,16 @@ export default function AuthModal({ mode, onClose, onSwitch }) {
         if (!res?.data?.success) {
           setError(res?.data?.message || "Login failed");
         } else {
+          const actualRole = res.data.user?.role;
+          if (actualRole !== form.role) {
+            setError(`This account is registered as "${actualRole}", not "${form.role}". Please select the correct role.`);
+            localStorage.removeItem("jwt_token");
+            setLoading(false);
+            return;
+          }
           onClose();
-          const role = res.data.user?.role;
-          if (role === "admin") navigate("/admin/dashboard");
-          else if (role === "instructor") navigate("/instructor/dashboard");
+          if (actualRole === "admin") navigate("/admin/dashboard");
+          else if (actualRole === "instructor") navigate("/instructor/dashboard");
           else navigate("/student/dashboard");
         }
       } else {

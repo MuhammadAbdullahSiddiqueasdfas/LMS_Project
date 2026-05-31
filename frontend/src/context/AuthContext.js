@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('jwt_token');
     setToken(null);
     setUser(null);
-    navigate('/login');
+    navigate('/');
   };
 
   const value = { user, token, login, register, logout };
