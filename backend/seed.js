@@ -11,6 +11,13 @@ mongoose.connect(process.env.MONGO_URI).then(async () => {
   await User.deleteMany({ email: { $in: ["instructor@abdrax.com", "student1@abdrax.com", "student2@abdrax.com"] } });
   await Course.deleteMany({ title: { $in: ["Complete MERN Stack Development", "React JS Masterclass", "Node.js & Express API"] } });
 
+  // Create admin if not exists
+  const existingAdmin = await User.findOne({ email: "admin@abdrax.com" });
+  if (!existingAdmin) {
+    await User.create({ name: "Admin", email: "admin@abdrax.com", password: "admin123", role: "admin" });
+    console.log("Admin created: admin@abdrax.com");
+  }
+
   // Create instructor
   const instructor = await User.create({
     name: "Usman Tariq",
