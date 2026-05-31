@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useModal } from "../context/ModalContext";
 
 export default function Hero() {
+  const { openRegister } = useModal();
+
   return (
     <section className="hero-section py-5 d-flex align-items-center">
       <div className="container position-relative">
@@ -15,7 +18,7 @@ export default function Hero() {
             </p>
             <div className="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3">
               <Link to="/courses" className="btn btn-primary-custom btn-lg px-5 py-3 rounded-pill fw-bold">Explore Courses</Link>
-              <Link to="/register" className="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold">Start Teaching</Link>
+              <button onClick={openRegister} className="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold">Start Teaching</button>
             </div>
           </div>
 
