@@ -5,7 +5,7 @@
 
 ---
 
-## 🌐 Live Project
+## 🌐 Project
 
 | Layer | URL |
 |-------|-----|

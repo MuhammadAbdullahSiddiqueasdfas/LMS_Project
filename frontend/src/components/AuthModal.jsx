@@ -153,6 +153,12 @@ export default function AuthModal({ mode, onClose, onSwitch }) {
             {isLogin ? "Create one" : "Sign In"}
           </span>
         </p>
+
+        {isLogin && (
+          <div style={styles.adminHint}>
+            <strong>Admin:</strong> admin@abdrax.com &nbsp;|&nbsp; <strong>Pass:</strong> admin123
+          </div>
+        )}
       </div>
     </div>
   );
@@ -297,5 +303,15 @@ const styles = {
     border: "1px solid rgba(0,198,255,0.5)",
     color: "#00c6ff",
     fontWeight: "700",
+  },
+  adminHint: {
+    marginTop: "1rem",
+    padding: "0.6rem 0.9rem",
+    background: "rgba(255,255,255,0.04)",
+    border: "1px solid rgba(255,255,255,0.08)",
+    borderRadius: "10px",
+    color: "rgba(255,255,255,0.45)",
+    fontSize: "0.78rem",
+    textAlign: "center",
   },
 };
